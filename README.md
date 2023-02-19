@@ -1,4 +1,8 @@
-# Implementation Details for DeepFusion and TokenFusion
+# ImmFusion: Robust mmWave-RGB Fusion for 3D Human Body Reconstruction in All Weather Conditions
+
+## Implementation Details for DeepFusion and TokenFusion
+### Framework
+![framework](imgs\framework.png)
 
 ### DeepFusion
 
