@@ -2,7 +2,7 @@
 
 ## Implementation Details for DeepFusion and TokenFusion
 ### Framework
-![framework](imgs\framework.png)
+![framework](imgs/framework.png)
 
 ### DeepFusion
 
