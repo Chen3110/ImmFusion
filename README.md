@@ -2,16 +2,62 @@
 ## Project page
 https://chen3110.github.io/ImmFusion/index.html
 
-Code will be available soon.
-
 ## Framework
 ![framework](imgs/framework.png)
 
-## Implementation Details for DeepFusion and TokenFusion
-### DeepFusion
+## Install
 
-DeepFusion adopts a Transformer-based module to fuse image and point features. Specifically, it transforms the point features to the queries and image features to the keys/values and then aggregates image features to the point features. As DeepFusion is a generic Transformer-based block that is incompatible with the dimension-reduction mechanism, we adopt the parametric reconstruction pipeline by replacing the detection framework of DeepFusion with linear projection to regress SMPL-X parameters. To be specific, we utilize the image backbone ResNet (same as original DeepFusion) and the point backbone PointNet++ to extract image and point local features from images and radar, respectively. Then, we adopt MLPs to transform local point features and image features to queries and keys/values, respectively. Then we feed the features into a general Transformer module to fuse the information. The fused features are then concatenated with the original point features. At last, we adopt the max pooling and MLPs to regress features to the SMPL-X parameters.
+Our codebase is developed based on [MeshGraphormer](https://github.com/microsoft/MeshGraphormer) and [MeshTransformer](https://github.com/microsoft/MeshTransformer). Please check [Install.md](https://github.com/microsoft/MeshGraphormer/blob/main/docs/INSTALL.md) to install the relevant dependencies. Please also consider citing them if you use this codebase.
 
-### TokenFusion
+## Download
 
-For the TokenFusion method, we implement it without structure altering. Specifically, as images and point clouds are heterogeneous modalities, we train two standalone Transformers for the two modalities, respectively. We plug Score Nets among the Transformer layers to dynamically predict the importance of local features obtained by the backbones (same as that used in DeepFusion). The Score Net is implemented using an MLP to dynamically score the feature tokens. The joint/vertex tokens with scores lower than the threshold are substituted with corresponding ones from the other modality. At last, the pruned joint/vertex features of two modalities are integrated to regress final coordinates by MLPs.
+The pre-trained models can be downloaded with the following command.
+```bash
+    sh download_models.sh
+```
+
+Visit the following websites to download SMPL and SMPL-X models. 
+
+- Download `basicModel_neutral_lbs_10_207_0_v1.0.0.pkl` from [SMPLify](http://smplify.is.tue.mpg.de/), and place it at `./src/modeling/data`.
+- Download `SMPLX_NEUTRAL.pkl` from [SMPL-X](https://smpl-x.is.tue.mpg.de/), and place it at `./src/modeling/data`.
+
+## Experiments
+### Training
+We use the following script to train on the mmBody dataset.
+
+```bash
+python ./run_immfusion.py \
+    --output_dir output/immfusion \
+    --dataset mmBodyDataset \
+    --data_path datasets/mmBody \
+    --mesh_type smplx \
+    --model AdaptiveFusion \
+    --per_gpu_train_batch_size 10 \
+    --train /
+```
+
+### Testing
+
+```bash
+python ./run_immfusion.py \
+    --output_dir output/immfusion \
+    --resume_checkpoint output/immfusion/checkpoint \
+    --dataset mmBodyDataset \
+    --data_path datasets/mmBody \
+    --mesh_type smplx \
+    --model AdaptiveFusion \
+    --test_scene lab1 \
+```
+
+
+## BibTeX
+```
+@inproceedings{chen2023immfusion,
+  title={Immfusion: Robust mmwave-rgb fusion for 3d human body reconstruction in all weather conditions},
+  author={Chen, Anjun and Wang, Xiangyu and Shi, Kun and Zhu, Shaohao and Fang, Bin and Chen, Yingfeng and Chen, Jiming and Huo, Yuchi and Ye, Qi},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={2752--2758},
+  year={2023},
+  organization={IEEE}
+}
+```

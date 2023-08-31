@@ -55,7 +55,7 @@ class LossManager():
         plt.close()
         cv2.imwrite(os.path.join(output_path, 'loss.png'), img)
         if self.ding_bot is not None:
-            self.ding_bot.add_md("train_AMMFusion", "【IMG】 \n ![img]({}) \n 【{}】\n epoch={}, device={}, loss={}"
+            self.ding_bot.add_md("train_ImmFusion", "【IMG】 \n ![img]({}) \n 【{}】\n epoch={}, device={}, loss={}"
                                  .format(self.ding_bot.img2b64(img), output_path, epoch, device, total_loss[-1]))
             self.ding_bot.enable()
         

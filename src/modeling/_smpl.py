@@ -22,11 +22,9 @@ from human_body_prior.body_model.body_model import BodyModel
 from human_body_prior.body_model.lbs import lbs
 from src.datasets.utils import rodrigues_2_rot_mat
 
-SMPL_MODEL_NEUTRAL_PATH = 'models/smpl/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl'
-    
-SMPLX_MODEL_FEMALE_PATH = 'models/smplx/female/model.npz'
-SMPLX_MODEL_MALE_PATH = 'models/smplx/male/model.npz'
-SMPLX_MODEL_NEUTRAL_PATH = 'models/smplx/neutral/model.npz'
+SMPL_MODEL_NEUTRAL_PATH = 'src/modeling/data/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl'
+
+SMPLX_MODEL_NEUTRAL_PATH = 'src/modeling/data/SMPLX_NEUTRAL.pkl'
 
 class SMPL(nn.Module):
     def __init__(self, model_file=SMPL_MODEL_NEUTRAL_PATH):
