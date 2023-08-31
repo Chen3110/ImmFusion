@@ -33,7 +33,7 @@ python ./run_immfusion.py \
     --mesh_type smplx \
     --model AdaptiveFusion \
     --per_gpu_train_batch_size 10 \
-    --train /
+    --train
 ```
 
 ### Testing
@@ -46,7 +46,7 @@ python ./run_immfusion.py \
     --data_path datasets/mmBody \
     --mesh_type smplx \
     --model AdaptiveFusion \
-    --test_scene lab1 \
+    --test_scene lab1
 ```
 
 
