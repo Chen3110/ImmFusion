@@ -13,7 +13,7 @@ Our codebase is developed based on [MeshGraphormer](https://github.com/microsoft
 
 The pre-trained models can be downloaded with the following command.
 ```bash
-    sh download_models.sh
+sh download_models.sh
 ```
 
 Visit the following websites to download SMPL and SMPL-X models. 
