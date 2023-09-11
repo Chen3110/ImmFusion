@@ -11,6 +11,8 @@ Our codebase is developed based on [MeshGraphormer](https://github.com/microsoft
 
 ## Download
 
+Visit [mmBody](https://github.com/Chen3110/mmBody) to download mmBody dataset and place it at `./datasets`. 
+
 The pre-trained models can be downloaded with the following command.
 ```bash
 sh download_models.sh
