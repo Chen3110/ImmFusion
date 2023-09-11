@@ -117,10 +117,10 @@ class mmBodyDataset():
         joints_2d = {}
         for image in self.args.input_dict['image']:
             orig_imgs[image] = frame[image].copy()
-            result[image] = self.process_image(frame[image], joints_3d, seq_loader.calib[image])
+            result[image], bbox_min, bbox_max = self.process_image(frame[image], joints_3d, seq_loader.calib[image], need_crop=True)
             trans_mat[image] = seq_loader.calib[image]
-            bbox[image] = frame['bbox{}'.format(image[-1])].reshape(-1)
-            resize_ratio = [self.img_res, self.img_res] / (bbox[image][2:] - bbox[image][:2])
+            bbox[image] = np.concatenate([bbox_min, bbox_max]).reshape(-1)
+            resize_ratio = [self.img_res, self.img_res] / (bbox_max - bbox_min)
             if self.args.joints_2d_loss:
                 joints_2d[image] = ((project_pcl(joints_3d, trans_mat=seq_loader.calib[image], intrinsic=INTRINSIC[image]) 
                                      - bbox[image][0:2]) * resize_ratio).astype(np.int64)
@@ -128,7 +128,7 @@ class mmBodyDataset():
         # process depth pcl
         for depth in self.args.input_dict['depth']:
             result[depth] = self.process_pcl(frame[depth], joints_3d, self.args.num_points, mask_limbs=self.args.mask_limbs, 
-                                             pelvis_idx=pelvis_idx, mask_ratio=self.args.point_mask_ratio,
+                                             pelvis_idx=pelvis_idx, mask_ratio=self.args.point_mask_ratio, need_filter=True,
                                              num_mask_limbs=self.args.num_mask_limbs)
             trans_mat[depth] = seq_loader.calib[depth]
             
