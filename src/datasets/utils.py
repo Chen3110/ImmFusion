@@ -46,13 +46,9 @@ class mmBodySequenceLoader(object):
         if 'image0' in self.resource:
             result['image0'] = cv2.imread(os.path.join(
                 self.seq_path, 'image', 'master', 'frame_{}.png'.format(idx+self.skip_head)))
-            result['bbox0'] = np.load(os.path.join(
-                self.seq_path, 'bounding_box', 'master', 'frame_{}.npy'.format(idx+self.skip_head)))
         if 'image1' in self.resource:
             result['image1'] = cv2.imread(os.path.join(
                 self.seq_path, 'image', 'sub', 'frame_{}.png'.format(idx+self.skip_head)))
-            result['bbox1'] = np.load(os.path.join(
-                self.seq_path, 'bounding_box', 'sub', 'frame_{}.npy'.format(idx+self.skip_head)))
         if 'depth0' in self.resource:
             result['depth0'] = np.load(os.path.join(
                 self.seq_path, 'depth_pcl', 'master', 'frame_{}.npy'.format(idx+self.skip_head)))
