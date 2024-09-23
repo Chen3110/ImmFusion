@@ -855,8 +855,8 @@ def main(args):
         if args.mix_data:
             datasets = [
                 dataset,
-                Datasets.CLIFFDataset(args, data_path='/remote-home/chenanjun/dataset/COCO'),
-                Datasets.CLIFFDataset(args, data_path='/remote-home/chenanjun/dataset/mpii'),
+                Datasets.CLIFFDataset(args, data_path='/path/to/dataset/COCO'),
+                Datasets.CLIFFDataset(args, data_path='/path/to/dataset/mpii'),
             ]
             dataset = torch.utils.data.ConcatDataset(datasets)
         if args.eval_test_dataset:
