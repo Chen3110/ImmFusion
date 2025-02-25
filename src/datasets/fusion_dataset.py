@@ -118,7 +118,7 @@ class mmBodyDataset():
         for image in self.args.input_dict['image']:
             orig_imgs[image] = frame[image].copy()
             result[image], bbox_min, bbox_max = self.process_image(frame[image], joints_3d, seq_loader.calib[image], need_crop=True)
-            trans_mat[image] = seq_loader.calib[image]
+            trans_mat[image] = trans_mat_2_tensor(seq_loader.calib[image])
             bbox[image] = np.concatenate([bbox_min, bbox_max]).reshape(-1)
             resize_ratio = [self.img_res, self.img_res] / (bbox_max - bbox_min)
             if self.args.joints_2d_loss:
@@ -130,7 +130,7 @@ class mmBodyDataset():
             result[depth] = self.process_pcl(frame[depth], joints_3d, self.args.num_points, mask_limbs=self.args.mask_limbs, 
                                              pelvis_idx=pelvis_idx, mask_ratio=self.args.point_mask_ratio, need_filter=True,
                                              num_mask_limbs=self.args.num_mask_limbs)
-            trans_mat[depth] = seq_loader.calib[depth]
+            trans_mat[depth] = trans_mat_2_tensor(seq_loader.calib[depth])
             
         # process radar pcl
         radar_pcl = torch.Tensor([])

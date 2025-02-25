@@ -18,8 +18,8 @@ from src.utils.geometric_layers import rodrigues
 import src.modeling.data.config as cfg
 
 import torch
-from human_body_prior.body_model.body_model import BodyModel
-from human_body_prior.body_model.lbs import lbs
+from src.modeling.human_body_prior.body_model.body_model import BodyModel
+from src.modeling.human_body_prior.body_model.lbs import lbs
 from src.datasets.utils import rodrigues_2_rot_mat
 
 SMPL_MODEL_NEUTRAL_PATH = 'src/modeling/data/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl'
